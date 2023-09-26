@@ -229,6 +229,7 @@ class DefaultPreprocessor(object):
 
         # multiprocessing magic.
         r = []
+        print("num_processes============",num_processes)
         with multiprocessing.get_context("spawn").Pool(num_processes) as p:
             for k in dataset.keys():
                 r.append(p.starmap_async(self.run_case_save,
@@ -243,6 +244,7 @@ class DefaultPreprocessor(object):
                 while len(remaining) > 0:
                     all_alive = all([j.is_alive() for j in workers])
                     if not all_alive:
+                        print("num_processes============",num_processes)
                         raise RuntimeError('Some background worker is 6 feet under. Yuck. \n'
                                            'OK jokes aside.\n'
                                            'One of your background processes is missing. This could be because of '
